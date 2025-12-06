@@ -1,5 +1,4 @@
 <?php
-// auth.php 
 
 function is_logged_in() {
 return !empty($_SESSION['user']);
@@ -23,4 +22,5 @@ http_response_code(403);
 echo "Forbidden: admin only.";
 exit;
 }
+
 }
