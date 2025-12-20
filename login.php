@@ -1,7 +1,6 @@
 <?php
+session_start();
 require_once __DIR__ . '/config.php';
-
-session_start(); 
 
 $error = '';
 
@@ -14,20 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         if ($email === 'user@example.com' && $password === 'password123') {
             $_SESSION['user'] = $email;
-            header('Location: dashboard.php'); 
-            exit(); 
+            header('Location: dashboard.php');
+            exit();
         } else {
             $error = 'Invalid email or password.';
         }
     }
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link rel="stylesheet" href="/public/css/styles.css">
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body>
 
@@ -37,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main class="container">
   <section>
-
     <?php if (!empty($error)): ?>
       <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
@@ -57,11 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 
   </section>
-</main>
-
-</body>
-</html>
-
 </main>
 
 </body>
