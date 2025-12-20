@@ -1,18 +1,24 @@
 <?php
-
 require_once __DIR__ . '/config.php';
+
+session_start(); 
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-    if ($email === '' || $password === '') {
+    if (empty($email) || empty($password)) {
         $error = 'Email and password are required.';
     } else {
-       
-        $error = '';
+        if ($email === 'user@example.com' && $password === 'password123') {
+            $_SESSION['user'] = $email;
+            header('Location: dashboard.php'); 
+            exit(); 
+        } else {
+            $error = 'Invalid email or password.';
+        }
     }
 }
 ?>
@@ -32,25 +38,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="container">
   <section>
 
-    <?php if ($error): ?>
+    <?php if (!empty($error)): ?>
       <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="post" action="login.php">
+    <form method="post" action="">
       <fieldset>
         <legend>User Login</legend>
 
-        <label>Email</label><br>
-        <input type="email" name="email" required><br><br>
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email" required><br><br>
 
-        <label>Password</label><br>
-        <input type="password" name="password" required minlength="6"><br><br>
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" required minlength="6"><br><br>
 
         <button type="submit">Log in</button>
       </fieldset>
     </form>
 
   </section>
+</main>
+
+</body>
+</html>
+
 </main>
 
 </body>
